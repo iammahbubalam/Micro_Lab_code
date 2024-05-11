@@ -1,0 +1,61 @@
+#define leftSensorPin 11
+#define rightSensorPin 8
+#define leftMotorForPin 2
+#define leftMotorBackPin 3
+#define rightMotorForPin 4
+#define rightMotorBackPin 5
+
+void setup() {
+  pinMode(leftSensorPin, INPUT);
+  pinMode(rightSensorPin, INPUT);
+  pinMode(leftMotorForPin, OUTPUT);
+  pinMode(leftMotorBackPin, OUTPUT);
+  pinMode(rightMotorForPin, OUTPUT);
+  pinMode(rightMotorBackPin, OUTPUT);
+}
+
+void loop() {
+  int leftSensorValue = digitalRead(leftSensorPin);
+  int rightSensorValue = digitalRead(rightSensorPin);
+
+  // Line following logic
+  if (leftSensorValue == 0 && rightSensorValue == 0) {
+    moveForward(); // Move forward if both sensors are on the line
+  } else if (leftSensorValue == 1 && rightSensorValue == 0) {
+    turnLeft(); // Turn right if only left sensor detects the line
+  } else if (leftSensorValue == 0 && rightSensorValue == 1) {
+    turnRight(); // Turn left if only right sensor detects the line
+  } else {
+    stopMotors(); // Stop if both sensors are off the line
+  }
+
+  delay(800); // Delay to slow down movements
+}
+
+void moveForward() {
+  analogWrite(leftMotorForPin, 150); // Adjust PWM duty cycle for desired speed
+  analogWrite(leftMotorBackPin, LOW);
+  analogWrite(rightMotorForPin, 150); // Adjust PWM duty cycle for desired speed
+  analogWrite(rightMotorBackPin, LOW);
+}
+
+void turnLeft() {
+  analogWrite(leftMotorForPin, 120); // Adjust PWM duty cycle for desired speed
+  analogWrite(leftMotorBackPin, LOW);
+  analogWrite(rightMotorForPin, LOW); // Adjust PWM duty cycle for desired speed
+  analogWrite(rightMotorBackPin, 110);
+}
+
+void turnRight() {
+  analogWrite(leftMotorForPin, LOW); // Adjust PWM duty cycle for desired speed
+  analogWrite(leftMotorBackPin, 120);
+  analogWrite(rightMotorForPin, 110); // Adjust PWM duty cycle for desired speed
+  analogWrite(rightMotorBackPin, LOW);
+}
+
+void stopMotors() {
+  analogWrite(leftMotorForPin, LOW);
+  analogWrite(leftMotorBackPin, LOW);
+  analogWrite(rightMotorForPin, LOW);
+  analogWrite(rightMotorBackPin, LOW);
+}

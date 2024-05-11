@@ -1,0 +1,26 @@
+#include <Servo.h>
+
+// Create a servo object
+Servo servoMotor;
+
+// Define the pin for the servo
+int servoPin = 9; // Change this to the pin you're using
+
+void setup() {
+  // Attach the servo to the pin
+  servoMotor.attach(servoPin);
+}
+
+void loop() {
+  // Sweep the servo from 0 to 180 degrees
+  for (int angle = 0; angle <= 180; angle += 1) {
+    servoMotor.write(angle); // Set the servo position
+    delay(15); // Delay for smoother motion
+  }
+  
+  // Sweep the servo from 180 to 0 degrees
+  for (int angle = 180; angle >= 0; angle -= 1) {
+    servoMotor.write(angle); // Set the servo position
+    delay(15); // Delay for smoother motion
+  }
+}

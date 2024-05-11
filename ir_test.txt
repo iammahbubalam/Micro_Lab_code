@@ -1,0 +1,21 @@
+// Define the pin for the IR sensor
+int irSensorPin = 2; // Change this to the pin you're using
+
+void setup() {
+  // Initialize serial communication
+  Serial.begin(9600);
+
+  // Set the IR sensor pin as input
+  pinMode(irSensorPin, INPUT);
+}
+
+void loop() {
+  // Read the value from the IR sensor
+  int sensorValue = digitalRead(irSensorPin);
+
+  // Print the sensor value to the serial monitor
+  Serial.println(sensorValue);
+
+  // Add a delay to make the output easier to read
+  delay(500);
+}
